@@ -29,6 +29,5 @@ describe "Items create endpoint" do
     post "/api/v1/items", params: body
 
     expect(response).to_not be_successful
-    require 'pry';binding.pry
   end
 end
