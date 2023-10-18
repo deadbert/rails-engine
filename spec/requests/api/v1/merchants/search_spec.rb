@@ -22,4 +22,16 @@ describe "Merchants search API endpoint" do
       expect(response.body).to eq({data: {attributes: []}}.to_json)
     end
   end
+
+  describe "/find_all" do
+    it "returns all merchants wich match a search term" do
+      merchant1 = Merchant.create!(name: "Nic")
+      merchant2 = Merchant.create!(name: "Nicholas")
+      merchant3 = Merchant.create!(name: "Niche")
+
+      get "/api/v1/merchants/find_all?name=Nic"
+      
+      expect(response.body).to eq(MerchantSerializer.new([merchant1, merchant2, merchant3]).to_json)
+    end
+  end
 end
