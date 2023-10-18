@@ -10,4 +10,8 @@ class Merchant < ApplicationRecord
       false
     end
   end
+
+  def self.search_one(query)
+    where("lower(name) LIKE ?", "%#{query.downcase}%")
+  end
 end

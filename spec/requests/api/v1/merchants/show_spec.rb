@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Merchant show endpoint" do
+describe "Merchant show 1 endpoint" do
   it "sends info on one merchant" do
     merchant = create(:merchant)
 
