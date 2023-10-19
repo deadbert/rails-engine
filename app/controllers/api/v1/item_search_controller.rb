@@ -42,10 +42,18 @@ class Api::V1::ItemSearchController < ApplicationController
   end
 
   def valid_params?
-    if (params[:name] && (params[:min_price] || params[:max_price]))
+    if name_and_price_invalid? || max_min_invalid?
       false
     else
       true
     end
+  end
+
+  def name_and_price_invalid?
+   true if (params[:name] && (params[:min_price] || params[:max_price]))
+  end
+
+  def max_min_invalid?
+    true if (params[:max_price].to_i < 0 || params[:min_price].to_i < 0)
   end
 end
