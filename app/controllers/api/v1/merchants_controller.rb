@@ -1,5 +1,5 @@
 class Api::V1::MerchantsController < ApplicationController
-  # rescue_from ActiveRecord::RecordNotFound
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found_response
   def index
     render json: MerchantSerializer.new(Merchant.all)
   end
@@ -10,5 +10,11 @@ class Api::V1::MerchantsController < ApplicationController
     rescue ActiveRecord::RecordNotFound => exception
       render json: ErrorSerializer.new(ErrorMessage.new(exception, 404)), status: :not_found
     end
+  end
+
+  private
+
+  def not_found_response(error)
+    render json: ErrorSerializer.new(ErrorMessage.new(error, 404)), status: :not_found
   end
 end
